@@ -13,6 +13,11 @@ async function runServer() {
 			res.status(401).send("invalid token, please check your configuration");
 		}
 	});
+
+	server.get("/", (req, res) => {
+		res.sendFile("index.html", { root: __dirname });
+	});
+
 	const PORT = parseInt(process.env.PORT, 10) || 3001;
 	server.listen(PORT, (err) => {
 		if (err) console.error(err);
