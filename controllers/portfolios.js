@@ -17,15 +17,15 @@ exports.getPortfolioById = async (req, res) => {
 
 exports.createPortfolio = async (req, res) => {
 	console.log("Create portfolio called");
-	const portfolioDEata = req.body;
+	const portfolioData = req.body;
 	const userId = req.user.sub; // user id from auth0
-	const portfolio = new Portofio(portfolioDEata);
+	const portfolio = new Portfolio(portfolioData);
 	portfolio.userId = userId;
 	try {
 		const newPortfolio = await portfolio.save();
-		return res.status(201).json(newPortfolio);
-	} catch (e) {
-		return res.status(422).json(e.message);
+		return res.json(newPortfolio);
+	} catch (error) {
+		return res.status(422).send(error.message);
 	}
 
 	res.json({ message: "Create portfolio from 3001" });
